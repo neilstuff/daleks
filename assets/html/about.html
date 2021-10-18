@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>About Daleks&hellip;</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles/starwars.css" />
+
+</head>
+
+<!-- Adopted from the original article at
+     http://www.sitepoint.com/css3-starwars-scrolling-text/ -->
+
+<body>
+    <div class="container">
+
+        <h1>Daleks!</h1>
+
+        <div id="titles">
+            <div id="titlecontent">
+                <p class="center">EPISODE I<br/>INVASION OF THE DALEKS</p>
+
+                <p>The Daleks are invading. Doctor Who must stop them.</p>
+
+                <p>You are The Doctor. You must trick the Daleks into colliding with each other and exploding into lethal piles of rubble. Your only weapons are your wits and your Sonic Screw Driver. Lure the Daleks next to you and destroy them with your
+                    Screw Driver, but be careful, you can use it only once per level.
+                </p>
+
+                <p>Your Screw Driver also allows you to teleport, but you can't control where you land.</p>
+
+                <p>Good luck, Doctor...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // return on click
+        document.getElementsByClassName('container')[0].onclick =
+            function() {
+                history.back();
+            };
+        document.body.scrollTop = 0; // hide location bar on mobile
+    </script>
+
+
+    <!-- <audio id="themeSong" src="StarWars.mp3" type="audio/mpeg" preload/>
+<script type="text/javascript">
+//  var themeSong = document.getElementById('themeSong');
+//  setTimeout( function(){themeSong.play();}, 1000 );
+</script>
+-->
+
+</body>
+
+</html>

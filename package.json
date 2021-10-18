@@ -1,0 +1,46 @@
+{
+    "name": "daleks",
+    "version": "1.0.0",
+    "description": "Daleks",
+    "main": "main.js",
+    "scripts": {
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder --publish never",
+        "start": "electron ."
+    },
+    "build": {
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64",
+                        "ia32"
+                    ]
+                }
+            ]
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/thesourorange/neilstuff/daleks.git"
+    },
+    "keywords": [
+        "Electron",
+        "two.js",
+        "demo"
+    ],
+    "author": "GitHub",
+    "license": "CC0-1.0",
+    "dependencies": {
+        "jquery": "^3.6.0"
+    },
+    "devDependencies": {
+        "electron": "^15.1.0",
+        "electron-builder": "^22.11.7"
+    },
+    "bugs": {
+        "url": "https://github.com/thesourorange/neilstuff/issues"
+    },
+    "homepage": "https://github.com/thesourorange/neilstuffs#readme"
+}

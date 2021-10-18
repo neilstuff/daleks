@@ -1,0 +1,399 @@
+@font-face {
+    font-family: 'FA Sysfont C';
+    src: url(sysfont.woff2) format('woff2'), url(sysfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'FA Sysfont C';
+}
+
+.rotateMe {
+    display: none;
+}
+
+@media screen and (max-width: 320px) {
+    /* Portait Mode */
+    .rotateMe {
+        display: block;
+    }
+    .arena {
+        display: none;
+    }
+    .actions {
+        display: none;
+    }
+}
+
+
+/* double everything, is there an easier way? */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .board .piece {
+        /*
+        height: 32px;
+        width: 32px;
+*/
+    }
+    .actions a.button {
+        /* font-size: 20pt; */
+    }
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 0;
+    padding-left: 8em;
+}
+
+.gameData {
+    padding-top: 1em;
+}
+
+.gameData div {
+    display: inline-block;
+    padding-right: 3em;
+}
+
+.instructions {
+    position: absolute;
+    left: 10em;
+    top: 8em;
+    color: #5489D0;
+}
+
+.loading {
+    background: url("../images/loading.gif") 240px 120px no-repeat;
+    height: 200px;
+    width: 300px;
+}
+
+.dalek {
+    background: url("../images/dalek.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
+.doctor {
+    background: url("../images/doctor.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
+.dead {
+    background: url("../images/sprites.png") 0 0 no-repeat;
+    background-size: cover;
+    width: 8px;
+    height: 8px;
+}
+
+.rubble {
+    background: url("../images/rubble.png") 0 0 no-repeat;
+    ;
+    width: 32px;
+    height: 32px;
+}
+
+.arrow {
+    display: none;
+    /* at first */
+    z-index: 2;
+    margin: 1px;
+}
+
+div.arrowTouch {
+    z-index: 1;
+    height: 48px;
+    width: 48px;
+}
+
+.highlight {
+    border: 1px solid grey;
+    margin: 0;
+}
+
+.small {
+    font-size: small;
+}
+
+.sonicPulse {
+    position: absolute;
+}
+
+.sonicPulse .pulse {
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    border-radius: 50%;
+    opacity: .75;
+}
+
+
+/* concentric circles, to be animated with display: */
+
+.sonicPulse .pulse1 {
+    width: 16px;
+    height: 16px;
+    left: 8px;
+    top: 8px;
+}
+
+.sonicPulse .pulse2 {
+    width: 20px;
+    height: 20px;
+    left: 6px;
+    top: 6px;
+}
+
+.sonicPulse .pulse3 {
+    width: 24px;
+    height: 24px;
+    left: 4px;
+    top: 4px;
+}
+
+.sonicPulse .pulse4 {
+    width: 28px;
+    height: 28px;
+    left: 2px;
+    top: 2px;
+}
+
+.sonicPulse .pulse5 {
+    width: 32px;
+    height: 32px;
+}
+
+.actions {
+    /*
+    float:left;
+    padding: 6em 1em;
+*/
+    position: absolute;
+    left: 32em;
+    top: 8em;
+}
+
+a.button {
+    display: block;
+    font: bold 10pt Arial, Helvetica, sans-serif;
+    margin: 0.5em;
+    padding: .5em 1em;
+    text-align: center;
+    text-decoration: none;
+    background-color: #5489D0;
+    color: #1E4F92;
+    border: 1px solid #3E6491;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(254, 252, 252, 0.5);
+}
+
+a.button:active {
+    background-color: #4E74A1;
+    text-shadow: none;
+}
+
+a.button.disabled {
+    color: #666;
+    background-color: #999;
+    border: 1px solid #999;
+    text-shadow: none;
+}
+
+
+/* I hate !important, but this class needs to make things invisible and
+   preserve previous display style of element */
+
+.hidden {
+    display: none !important;
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.unselectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+
+/*
+.button[data-name=abort] {
+    display: none;
+}
+*/
+
+.gameover {
+    position: absolute;
+    z-index: 2;
+    margin: 4em;
+    padding: 2em;
+    height: 6em;
+    width: 15em;
+    border-radius: 1em;
+    line-height: 3em;
+    opacity: 0.75;
+    background: grey;
+    border: 5px solid;
+}
+
+.banner {
+    font-weight: bold;
+    opacity: 1.0;
+}
+
+.victory {
+    display: none;
+    border-color: green;
+    background: #ada;
+}
+
+.loser {
+    display: none;
+    border-color: red;
+    background: #daa;
+}
+
+.arena {
+    left: 0px;
+    z-index: 2;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    height: 324px;
+    width: 100%;
+}
+
+.board {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.piece {
+    position: absolute;
+    background-size: 100%;
+    /* scale to h/w */
+    height: 16px;
+    width: 16px;
+}
+
+.n {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAQ0lEQVQoz82SOw4AMAhCfd7/znRq0kX7SxsZhcdARJKdyu1CKQwI0DY8QlGBz8Ds5iuhyCNbu4cl8XftujA13/Mp3AAe/BUj39LO1wAAAABJRU5ErkJggg==) no-repeat;
+}
+
+.ne {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARklEQVQoz2P8//8/A7mAiYECwIJPkpGREauz/v//z0jQZpgisp2NzwCCmnE5naBmZI3YXMBEikZ0A0j2MzKfccASyUjUDADoLiIRhAUAoQAAAABJRU5ErkJggg==) no-repeat;
+}
+
+.e {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAR0lEQVQoz82SMQoAMAgDvf7/z+lUEGlB62L2S4IGSfarZQ0NhwG1km8GpdrRgPiqV0UvSbQPRmYkvs1JLSd7sARHMF173jw34CUdEZUW70QAAAAASUVORK5CYII=) no-repeat;
+}
+
+.se {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARUlEQVQoz+2TOw7AIAzFMPe/s1mjiJaWDCy8LYOdjxTUtpveCrlwCCBgqXMWxPoRVslAFr12ngl+jR0F5Z0/w6trc+wxBllwGCMOi16NAAAAAElFTkSuQmCC) no-repeat;
+}
+
+.s {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARElEQVQoz+WTQQoAIAgEd/z/n7drBGbUoaA5usqqKLa1S+iAR4sBA/5p5grGI5ktSJJskzr3YqXFSlIWixWXrBuuPUYDeJQhC2Rniu8AAAAASUVORK5CYII=) no-repeat;
+}
+
+.sw {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARElEQVQoz+3TKQ4AIAxEUT73v/OgSEhDuoDAMLqviyiS2ml6u8jHJoAAhdgWeWg7eYIVSiK9dha6N0fQxeWbqw149hgD0mAYI/2qK3kAAAAASUVORK5CYII=) no-repeat;
+}
+
+.w {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAR0lEQVQoz9WSSQ4AIAwCGf//ZzyZGE20LgflPqUtYFu7SjrQYzDgLTgKdvAKKEmUqCKgba49jLoktXvrMr05AgzXXhnAn93OUGMdEQmTl64AAAAASUVORK5CYII=) no-repeat;
+}
+
+.nw {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAR0lEQVQoz2P8//8/A7mAiYECwAJjMDIyYnXC////GcmyGZ9GvJoJacSrGZc38GpGtpGQAUzYNBJrABMuPxLjZ8YBSyQjUTMAt0wiEXEpzqIAAAAASUVORK5CYII=) no-repeat;
+}
+
+.navbar {
+    display: inline-block;
+    position: absolute;
+    left: 70px;
+    top: 0px;
+    width: 900px;
+    font-size: 14px;
+}
+
+.navbar ul {
+    display: inline;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a,
+.drop_menu_item {
+    display: inline-block;
+    color: black;
+    background-color: white;
+    padding: 2px;
+    text-decoration: none;
+    -webkit-app-region: no-drag;
+}
+
+.navbar li a:hover,
+.dropdown:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    z-index: 4px;
+}
+
+.navbar li.dropdown {
+    display: inline-block;
+    -webkit-app-region: no-drag
+}
+
+.navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 80px;
+    border: 1px solid black;
+    font-size: 14px;
+    -webkit-app-region: no-drag;
+    z-index: 4px;
+}
+
+.navbar .dropdown-content a {
+    color: black;
+    padding: 0.4em 0.6em;
+    text-decoration: none;
+    background-color: white;
+    display: block;
+    text-align: left;
+    background-color: black;
+    float: none;
+    z-index: 4px;
+}
+
+.navbar .dropdown-content a:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.title {
+    width: 48px;
+    height: 16px;
+    background-color: white;
+    margin-left: 220px;
+    z-index: 1;
+    font-size: 14px;
+}
