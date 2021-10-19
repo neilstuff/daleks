@@ -338,55 +338,76 @@ a.button.disabled {
     display: inline-block;
     color: black;
     background-color: white;
-    padding: 2px;
+    padding: 1px;
+    width:40px;
+    cursor: pointer;
     text-decoration: none;
     -webkit-app-region: no-drag;
-}
-
-.navbar li a:hover,
-.dropdown:hover {
-    background-color: black;
-    color: white;
-    cursor: pointer;
-    z-index: 4px;
 }
 
 .navbar li.dropdown {
     display: inline-block;
+    cursor: pointer;
     -webkit-app-region: no-drag
 }
 
 .navbar .dropdown-content {
+    background-color: white;
     display: none;
     position: absolute;
-    background-color: white;
     color: black;
     min-width: 80px;
     border: 1px solid black;
+    box-shadow: 2px 2px;
     font-size: 14px;
     -webkit-app-region: no-drag;
-    z-index: 4px;
+    z-index: 4;
 }
 
-.navbar .dropdown-content a {
-    color: black;
-    padding: 0.4em 0.6em;
+.navbar .dropdown-content li {
     text-decoration: none;
-    background-color: white;
-    display: block;
+    text-align: left;
+    float: none;
+    z-index: 100;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-app-region: no-drag;
+}
+
+.navbar .dropdown-content li:hover {
+    text-decoration: none;
+    color: white;
     text-align: left;
     background-color: black;
     float: none;
-    z-index: 4px;
+    z-index: 100;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-app-region: no-drag;
+}
+
+.navbar .dropdown-content a {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    width: 99%;
+    float: none;
+    white-space: nowrap;
+    z-index: 100;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
 }
 
 .navbar .dropdown-content a:hover {
-    background-color: white;
-    color: black;
-}
-
-.navbar .dropdown:hover .dropdown-content {
-    display: block;
+    text-decoration: none;
+    color: white;
+    text-align: left;
+    white-space: nowrap;
+    background-color: black;
+    float: none;
+    z-index: 100;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
 }
 
 .title {
@@ -397,3 +418,7 @@ a.button.disabled {
     z-index: 1;
     font-size: 14px;
 }
+
+
+.show {display:block;}
+.hide {display:none;}

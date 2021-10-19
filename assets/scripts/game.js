@@ -452,9 +452,45 @@ Daleks.GameController = (function() {
     return GameController;
 })();
 
+$(() => {
+    window.addEventListener("mousedown", event => {
 
+        if (event.target.classList && event.target.classList.contains('drop_menu_item')) {
+            var id = event.target.innerText.trimStart().toLowerCase();
 
-$(document).ready(function() {
+            $(`#${id}`).css('display', 'block');
+
+            event.target.style.backgroundColor = 'black';
+            event.target.style.color = 'white';
+
+        }
+
+    });
+
+    window.addEventListener("mouseup", event => {
+
+        var items = document.getElementsByClassName('drop_menu_item');
+
+        for (var item in items) {
+            if (items[item].innerText) {
+                var id = items[item].innerText.trimStart().toLowerCase();
+
+                $(`#${id}`).css('display', 'none');
+
+                items[item].style.backgroundColor = 'white';
+                items[item].style.color = 'black';
+            }
+ 
+        }
+
+       if (event.target.id && event.target.id == 'quit') {
+           window.api.quit();
+       }
+
+    });
+
     var game = new Daleks.GameController($(".arena"));
+
     game.startNextLevel();
+
 });

@@ -2,7 +2,7 @@
 
 const config = require('./config.json');
 
-const { app, protocol, BrowserWindow } = require('electron');
+const { app, protocol, ipcMain, BrowserWindow } = require('electron');
 
 const path = require('path')
 const url = require('url')
@@ -17,9 +17,9 @@ function createWindow() {
         height: 358,
         resizable: true,
         minWidth: 512,
-        minHeight: 358,
+        minHeight: 360,
         maxWidth: 512,
-        maxHeight: 358,
+        maxHeight: 360,
         autoHideMenuBar: true,
         frame: false,
         webPreferences: {
@@ -51,10 +51,16 @@ app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
     app.quit()
-})
+});
 
 app.on('activate', () => {
     if (mainWindow === null) {
         createWindow()
     }
-})
+});
+
+ipcMain.on('quit', function(event, arg) {
+
+    app.quit();
+
+});

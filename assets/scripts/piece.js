@@ -17,7 +17,6 @@ Daleks.Piece = (function() {
         this.isAnimating = false;
 
         this.el = $(`<div class="piece ${className}"/>`);
-        console.log(this.el);
     }
 
     Piece.prototype = {
