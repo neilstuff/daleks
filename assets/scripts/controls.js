@@ -62,8 +62,6 @@ Daleks.DoctorControls = (function()
       // animate
       doctor.slideTo( _getNewPosition( doctor.pos, dir ));
 
-      // don't animate
-      // doctor.setPosition( _getNewPosition( doctor.pos, dir ));
     },
     
     // move arrow pieces around the doctor

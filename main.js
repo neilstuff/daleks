@@ -13,13 +13,13 @@ var mainWindow = null;
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 512,
-        height: 358,
+        width: 480,
+        height: 362,
         resizable: true,
-        minWidth: 512,
-        minHeight: 360,
-        maxWidth: 512,
-        maxHeight: 360,
+        minWidth: 480,
+        minHeight: 362,
+        maxWidth: 480,
+        maxHeight: 362,
         autoHideMenuBar: true,
         frame: false,
         webPreferences: {

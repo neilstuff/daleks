@@ -39,10 +39,6 @@ Daleks.GameController = (function() {
             this.board.clear();
             this.isAnimating = false;
 
-            $(".gameover").hide();
-            $(".loading").hide();
-            $("#highScore").text(this.gameData.getHighScore());
-
             this.doctor = new Daleks.Piece("doctor", { frameCount: 4 });
 
             this.controls = new Daleks.DoctorControls(
@@ -73,12 +69,6 @@ Daleks.GameController = (function() {
 
         // Update the css for all elements
         draw: function() {
-            // for (var i in this.daleks) {
-            //   this.daleks[i].draw();
-            // }
-
-            // this.doctor.draw();  // animated elsewhere
-
             for (var i in this.rubble) {
                 this.rubble[i].draw();
             }
@@ -248,6 +238,7 @@ Daleks.GameController = (function() {
                 }
 
                 for (var j in this.daleks) {
+                    
                     if (this.daleks[i].collidedWith(this.daleks[j])) { // boom!
 
                         var rubble = new Daleks.Piece("rubble");
@@ -271,7 +262,7 @@ Daleks.GameController = (function() {
 
         updateScore: function(value) {
             this.score += value;
-            $("#score").text(this.score);
+    //        $("#score").text(this.score);
         },
 
 
@@ -453,6 +444,8 @@ Daleks.GameController = (function() {
 })();
 
 $(() => {
+    var game = new Daleks.GameController($(".arena"));
+
     window.addEventListener("mousedown", event => {
 
         if (event.target.classList && event.target.classList.contains('drop_menu_item')) {
@@ -483,13 +476,20 @@ $(() => {
  
         }
 
-       if (event.target.id && event.target.id == 'quit') {
+        if (event.target.id && event.target.id == 'quit') {
            window.api.quit();
-       }
+        } else if (event.target.id && event.target.id == 'teleport') {
+            game.teleport();    
+        } else if (event.target.id && event.target.id == 'laststand') {
+            game.lastStand();   
+        } else if (event.target.id && event.target.id == 'screwdriver') {
+            game.sonicScrewDriver();    
+        } else if (event.target.id && event.target.id == 'giveup') {
+            game.resetGame();
+            game.startNextLevel();
+        }
 
     });
-
-    var game = new Daleks.GameController($(".arena"));
 
     game.startNextLevel();
 

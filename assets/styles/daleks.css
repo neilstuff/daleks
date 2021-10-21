@@ -219,14 +219,8 @@ a.button.disabled {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-}
 
-
-/*
-.button[data-name=abort] {
-    display: none;
 }
-*/
 
 .gameover {
     position: absolute;
@@ -412,13 +406,12 @@ a.button.disabled {
 
 .title {
     width: 48px;
-    height: 16px;
+    height: 18px;
     background-color: white;
     margin-left: 220px;
     z-index: 1;
     font-size: 14px;
 }
-
 
 .show {display:block;}
 .hide {display:none;}

@@ -64,17 +64,15 @@ Daleks.Piece = (function() {
             };
 
             var self = this;
-            var i = 1;
+            var frame = 1;
 
             var nextFrame = function() {
                 self.drawAt({
-                    x: start.x + (interval.x / self.frameCount) * i,
-                    y: start.y + (interval.y / self.frameCount) * i
+                    x: start.x + (interval.x / self.frameCount) * frame,
+                    y: start.y + (interval.y / self.frameCount) * frame
                 });
-                if (++i <= self.frameCount) {
-                    // globalIAmAnimatingStill = true;  TODO - how to block until done?
-                    // or interrupt
-                    setTimeout(nextFrame, 50);
+                if (++frame <= self.frameCount) {
+                    setTimeout(nextFrame, 40);
                 } else {
                     self.finishAnimation();
                 }

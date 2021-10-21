@@ -5,9 +5,6 @@ Daleks.GameData = (function( localStorage, JSON )
 {
   "use strict";
   function GameData() {
-
-    // this.el = $('<div class="piece ' + className + '"/>');
-    // this.hide();   // hide until position set
   }
   
   GameData.prototype = {
