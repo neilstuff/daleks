@@ -7,16 +7,32 @@
 //   offset: offset in pixels to draw this piece
 //----------------------------------------------------------------------
 Daleks.Piece = (function() {
-    function Piece(className, args) {
+
+    function Piece(sprites, args) {
+        this.frames = [];
+        
+        for (var iSprite in sprites) {
+            console.log(iSprite, sprites[iSprite]);
+
+            for (var iFrame = 0; iFrame < sprites[iSprite].frames; iFrame++) {
+
+                this.frames.push(sprites[iSprite].className);
+
+            }
+
+        }
+ 
         args = args || {};
 
         this.pos = { x: 0, y: 0 };
         this.size = args.size || 16;
-        this.offset = args.offset || 0;
-        this.frameCount = args.frameCount || 8;
-        this.isAnimating = false;
 
-        this.el = $(`<div class="piece ${className}"/>`);
+        this.offset = args.offset || 0;
+        this.isAnimating = false;
+        this.frameCount = this.frames.length;
+
+        this.el = $(`<div class="piece"/>`);
+
     }
 
     Piece.prototype = {
@@ -67,7 +83,7 @@ Daleks.Piece = (function() {
             var frame = 1;
 
             var nextFrame = function() {
-                self.drawAt({
+                self.paint(frame - 1, {
                     x: start.x + (interval.x / self.frameCount) * frame,
                     y: start.y + (interval.y / self.frameCount) * frame
                 });
@@ -81,13 +97,19 @@ Daleks.Piece = (function() {
         },
 
         draw: function() {
-            this.drawAt(this.getScaledPos(this.pos));
+            this.paint(0, this.getScaledPos(this.pos));
         },
 
-        // draw using CSS
-        drawAt: function(pos) {
-            this.el.css("left", pos.x - this.offset);
-            this.el.css("bottom", pos.y - this.offset);
+        paint: function(frame, pos) {
+            console.log(frame, this.el[0]);
+
+            this.el.attr('class', `piece ${this.frames[frame]}`);
+
+            console.log(this.el[0]);
+            
+            this.el.css('left', pos.x - this.offset);
+            this.el.css('bottom', pos.y - this.offset);
+
         },
 
         //----------------------------------------
@@ -133,4 +155,5 @@ Daleks.Piece = (function() {
     };
 
     return Piece;
+
 })();

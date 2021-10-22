@@ -83,15 +83,43 @@ h1 {
 }
 
 .dead {
-    background: url("../images/sprites.png") 0 0 no-repeat;
+    background: url("../images/dead.png") 0 0 no-repeat;
     background-size: cover;
     width: 8px;
     height: 8px;
 }
 
+.dalek-dead-1 {
+    background: url("../images/dalek-dead-1.png") 0 0 no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+}
+
+.dalek-dead-2 {
+    background: url("../images/dalek-dead-2.png") 0 0 no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+}
+
+.dalek-dead-3 {
+    background: url("../images/dalek-dead-3.png") 0 0 no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+}
+
+.dalek-dead-4 {
+    background: url("../images/dalek-dead-4.png") 0 0 no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+}
+
 .rubble {
     background: url("../images/rubble.png") 0 0 no-repeat;
-    ;
+    background-size: cover;
     width: 32px;
     height: 32px;
 }

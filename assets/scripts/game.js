@@ -2,7 +2,27 @@ Daleks.GameController = (function() {
     "use strict";
 
     var _click = "click";
-    // var _click = "tapone";
+
+    var painterClasses = {
+        doctor: [
+            {className: "doctor", 
+             frames: 4}
+        ],
+        dalek: [
+            {className: "dalek", 
+             frames: 8}
+        ],  
+        rubble: [
+            {className: "rubble", 
+                frames: 1
+                className: "rubble", 
+             frames: 4}
+        ],
+        dead: [
+            {className: "dead", 
+             frames: 8}
+        ]
+    }
 
     function GameController(canvas) {
         var self = this;
@@ -14,17 +34,8 @@ Daleks.GameController = (function() {
 
         this.resetGame();
 
-        // this is always enabled
-        this.panicButton = $(".button[data-name=abort]");
-        this.panicButton.on(_click, function(e) {
-            e.preventDefault();
-            self.restoreControls();
-            return false;
-        });
         $(".arena").on("click", function() {
-            // $(".instructions").fadeOut(1000); 
-            $(".instructions").addClass("fadeOut");
-            // $(".arrowTouch").addClass("fadeOutHighlight"); 
+           $(".instructions").addClass("fadeOut");
         });
     }
 
@@ -39,7 +50,7 @@ Daleks.GameController = (function() {
             this.board.clear();
             this.isAnimating = false;
 
-            this.doctor = new Daleks.Piece("doctor", { frameCount: 4 });
+            this.doctor = new Daleks.Piece(painterClasses['doctor']);
 
             this.controls = new Daleks.DoctorControls(
                 this.board, {
@@ -54,7 +65,7 @@ Daleks.GameController = (function() {
             this.rubble = [];
             this.daleks = [];
             for (var i = 0; i < 5 * this.level; i++) {
-                this.daleks[i] = new Daleks.Piece("dalek");
+                this.daleks[i] = new Daleks.Piece(painterClasses['dalek']);
                 this.board.placeDalek(this.daleks[i], this.doctor);
             }
 
@@ -133,8 +144,8 @@ Daleks.GameController = (function() {
 
         // @return true of any daleks or the doctor are an in-progress animation
         animationInProgress: function() {
-            for (var i in this.daleks) {
-                if (this.daleks[i].isAnimating) {
+            for (var dalek in this.daleks) {
+                if (this.daleks[dalek].isAnimating) {
                     return true;
                 }
             }
@@ -183,8 +194,8 @@ Daleks.GameController = (function() {
 
             // check for victory
             var victory = true;
-            for (var i in this.daleks) {
-                if (this.daleks[i]) {
+            for (var iDalek in this.daleks) {
+                if (this.daleks[iDalek]) {
                     victory = false;
                     break;
                 }
@@ -202,8 +213,8 @@ Daleks.GameController = (function() {
 
         //----------------------------------------
         moveDaleks: function() {
-            for (var i in this.daleks) { // not a for loop beacuse this array is sparse
-                var dalek = this.daleks[i];
+            for (var iDalek in this.daleks) { // not a for loop beacuse this array is sparse
+                var dalek = this.daleks[iDalek];
                 dalek.moveTowards(this.doctor);
             }
         },
@@ -213,12 +224,14 @@ Daleks.GameController = (function() {
         dalekCollidedWithLandscape: function(inDalek) {
 
             if (inDalek.collidedWith(this.doctor)) {
+                console.log(inDalek);
+                this.board.remove(inDalek);
                 this.loseGame();
                 return false;
             }
 
-            for (var i in this.rubble) {
-                if (inDalek.collidedWith(this.rubble[i])) {
+            for (var iRubble in this.rubble) {
+                if (inDalek.collidedWith(this.rubble[iRubble])) {
                     return true; // boom
                 }
             }
@@ -230,22 +243,22 @@ Daleks.GameController = (function() {
         // check for impact with existing landmarks first, 
         // then with other daleks - which will make a landmark for others to hit
         checkCollisions: function() {
-            for (var i in this.daleks) {
+            for (var iDalek in this.daleks) {
 
-                if (this.dalekCollidedWithLandscape(this.daleks[i])) {
-                    this.removeDalek(i);
+                if (this.dalekCollidedWithLandscape(this.daleks[iDalek])) {
+                    this.removeDalek(iDalek);
                     continue;
                 }
 
-                for (var j in this.daleks) {
-                    
-                    if (this.daleks[i].collidedWith(this.daleks[j])) { // boom!
+                for (var jDalek in this.daleks) {
 
-                        var rubble = new Daleks.Piece("rubble");
+                    if (this.daleks[iDalek].collidedWith(this.daleks[jDalek])) { // boom!
+
+                        var rubble = new Daleks.Piece(painterClasses['rubble']);
                         this.rubble[this.rubble.length] = rubble;
-                        this.board.placeRubble(rubble, this.daleks[i].pos);
-                        this.removeDalek(i); // will this screw up iteration?
-                        this.removeDalek(j);
+                        this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+                        this.removeDalek(iDalek);
+                        this.removeDalek(jDalek);
                         break;
                     }
                 }
@@ -262,7 +275,7 @@ Daleks.GameController = (function() {
 
         updateScore: function(value) {
             this.score += value;
-    //        $("#score").text(this.score);
+            $("#score").text(this.score);
         },
 
 
@@ -331,10 +344,7 @@ Daleks.GameController = (function() {
             this.isLastStand = true;
             this.controls.disable();
             this.disableControls();
-            $(".button").addClass("disabled");
-
-            this.panicButton.removeClass("disabled hidden");
-            // this.panicButton.show();
+            $(".button").addClass("disabled");;
 
             this.updateWorld();
         },
@@ -343,8 +353,6 @@ Daleks.GameController = (function() {
         restoreControls: function() {
             this.isLastStand = false;
             this.enableControls();
-            // this.panicButton.hide();
-            this.panicButton.addClass("hidden");
         },
 
         // hide screw driver button if used
@@ -406,13 +414,14 @@ Daleks.GameController = (function() {
             this.endRound();
 
             // TODO animate
+
+            console.log(this.doctor.getEl());
+            
             this.doctor.getEl().addClass("dead");
 
-            $(".loser").show();
-
             this.gameData.setHighScore(this.score);
-            $("#highScore").text(this.gameData.getHighScore());
-            $("#highScores").show();
+ //           $("#highScore").text(this.gameData.getHighScore());
+ //            $("#highScores").show();
 
             var self = this;
             $(".arena").one(_click, function() {
@@ -427,11 +436,7 @@ Daleks.GameController = (function() {
         endRound: function() {
             this.roundOver = true;
             this.restoreControls(); // reset to normal state (ex: panic button)
-            this.disableControls();
-
-            // do this separately to prevent panic button form getting
-            // disabled on every animation.
-            // this.panicButton.hide();   
+            this.disableControls(); 
         },
 
         resetGame: function() {
