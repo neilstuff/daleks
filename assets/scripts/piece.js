@@ -12,20 +12,23 @@ Daleks.Piece = (function() {
         this.frames = [];
         
         for (var iSprite in sprites) {
-            console.log(iSprite, sprites[iSprite]);
-
+    
             for (var iFrame = 0; iFrame < sprites[iSprite].frames; iFrame++) {
 
                 this.frames.push(sprites[iSprite].className);
+                console.log(sprites[iSprite].className);
 
             }
 
         }
+
+        console.log(frames);
  
         args = args || {};
 
         this.pos = { x: 0, y: 0 };
         this.size = args.size || 16;
+        this.interval = args.interval || 40;
 
         this.offset = args.offset || 0;
         this.isAnimating = false;
@@ -40,9 +43,9 @@ Daleks.Piece = (function() {
         getEl: function() { return this.el; },
 
         // deep copy new position
-        setPosition: function(inPos) {
-            this.pos.x = inPos.x;
-            this.pos.y = inPos.y;
+        setPosition: function(pos) {
+            this.pos.x = pos.x;
+            this.pos.y = pos.y;
         },
 
         // center point of piece on screen in pixels
@@ -87,8 +90,32 @@ Daleks.Piece = (function() {
                     x: start.x + (interval.x / self.frameCount) * frame,
                     y: start.y + (interval.y / self.frameCount) * frame
                 });
+
                 if (++frame <= self.frameCount) {
-                    setTimeout(nextFrame, 40);
+                    setTimeout(nextFrame, self.interval);
+                } else {
+                    self.finishAnimation();
+                }
+            };
+
+            nextFrame.call();
+
+        },
+
+        animate: function() {
+            this.isAnimating = true;
+
+            var pos = this.getScaledPos(this.pos);
+            var self = this;
+            var frame = 1;
+
+            var nextFrame = function() {
+                self.paint(frame - 1, pos);
+
+                console.log(self.frameCount, `${self.frames[frame - 1]}`, frame, pos);
+                if (++frame <= self.frameCount) {
+                    
+                    setTimeout(nextFrame, self.interval);
                 } else {
                     self.finishAnimation();
                 }
@@ -101,12 +128,8 @@ Daleks.Piece = (function() {
         },
 
         paint: function(frame, pos) {
-            console.log(frame, this.el[0]);
-
+ 
             this.el.attr('class', `piece ${this.frames[frame]}`);
-
-            console.log(this.el[0]);
-            
             this.el.css('left', pos.x - this.offset);
             this.el.css('bottom', pos.y - this.offset);
 
