@@ -12,11 +12,25 @@ Daleks.GameController = (function() {
             {className: "dalek", 
              frames: 8}
         ],  
+        collision: [
+            {className: "dalek-dead-1", 
+             frames: 1
+            },
+            {className: "dalek-dead-2", 
+             frames: 1
+            },
+            {className: "dalek-dead-3", 
+             frames: 1
+            },
+            {className: "dalek-dead-4", 
+             frames: 1
+            },
+        ],
         rubble: [
-            {className: "rubble", 
-                frames: 1
-                className: "rubble", 
-             frames: 4}
+            {
+             className: "rubble", 
+             frames: 4
+            }
         ],
         dead: [
             {className: "dead", 
@@ -78,10 +92,10 @@ Daleks.GameController = (function() {
             this.updateWorld();
         },
 
-        // Update the css for all elements
+        // Update the css for all element
         draw: function() {
-            for (var i in this.rubble) {
-                this.rubble[i].draw();
+            for (var iRubble in this.rubble) {
+                this.rubble[iRubble].draw();
             }
 
             this.updateControls(); // draws controls as well
@@ -126,10 +140,13 @@ Daleks.GameController = (function() {
         },
 
         disableControls: function() {
+
             this.controls.disable();
+
             $("body").off("keydown");
             $(".actions").off(_click, "a");
             $(".button").addClass("disabled");
+
         },
 
         //----------------------------------------
@@ -253,13 +270,21 @@ Daleks.GameController = (function() {
                 for (var jDalek in this.daleks) {
 
                     if (this.daleks[iDalek].collidedWith(this.daleks[jDalek])) { // boom!
+                        var collision =new Daleks.Piece(painterClasses['collision'], {
+                            interval:1000
+                        });
+
+                        collision.setPosition(this.daleks[iDalek].pos);
+                        collision.animate();
 
                         var rubble = new Daleks.Piece(painterClasses['rubble']);
                         this.rubble[this.rubble.length] = rubble;
                         this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+
                         this.removeDalek(iDalek);
                         this.removeDalek(jDalek);
                         break;
+                        
                     }
                 }
             }
