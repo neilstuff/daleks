@@ -91,30 +91,26 @@ h1 {
 
 .dalek-dead-1 {
     background: url("../images/dalek-dead-1.png") 0 0 no-repeat;
-    background-size: cover;
-    width: 32px;
-    height: 32px;
+    width: 8px;
+    height: 8px;
 }
 
 .dalek-dead-2 {
     background: url("../images/dalek-dead-2.png") 0 0 no-repeat;
-    background-size: cover;
-    width: 32px;
-    height: 32px;
+    width: 8px;
+    height: 8px;
 }
 
 .dalek-dead-3 {
     background: url("../images/dalek-dead-3.png") 0 0 no-repeat;
-    background-size: cover;
-    width: 32px;
-    height: 32px;
+    width: 8px;
+    height: 8px;
 }
 
 .dalek-dead-4 {
     background: url("../images/dalek-dead-4.png") 0 0 no-repeat;
-    background-size: cover;
-    width: 32px;
-    height: 32px;
+    width: 8px;
+    height: 8px;
 }
 
 .rubble {
@@ -247,7 +243,6 @@ a.button.disabled {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-
 }
 
 .gameover {
@@ -361,7 +356,7 @@ a.button.disabled {
     color: black;
     background-color: white;
     padding: 1px;
-    width:40px;
+    width: 40px;
     cursor: pointer;
     text-decoration: none;
     -webkit-app-region: no-drag;
@@ -441,5 +436,10 @@ a.button.disabled {
     font-size: 14px;
 }
 
-.show {display:block;}
-.hide {display:none;}
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

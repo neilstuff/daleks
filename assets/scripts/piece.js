@@ -10,9 +10,9 @@ Daleks.Piece = (function() {
 
     function Piece(sprites, args) {
         this.frames = [];
-        
+
         for (var iSprite in sprites) {
-    
+
             for (var iFrame = 0; iFrame < sprites[iSprite].frames; iFrame++) {
 
                 this.frames.push(sprites[iSprite].className);
@@ -23,7 +23,7 @@ Daleks.Piece = (function() {
         }
 
         console.log(frames);
- 
+
         args = args || {};
 
         this.pos = { x: 0, y: 0 };
@@ -114,7 +114,7 @@ Daleks.Piece = (function() {
 
                 console.log(self.frameCount, `${self.frames[frame - 1]}`, frame, pos);
                 if (++frame <= self.frameCount) {
-                    
+
                     setTimeout(nextFrame, self.interval);
                 } else {
                     self.finishAnimation();
@@ -128,7 +128,7 @@ Daleks.Piece = (function() {
         },
 
         paint: function(frame, pos) {
- 
+
             this.el.attr('class', `piece ${this.frames[frame]}`);
             this.el.css('left', pos.x - this.offset);
             this.el.css('bottom', pos.y - this.offset);
