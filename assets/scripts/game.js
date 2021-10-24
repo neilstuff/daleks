@@ -40,8 +40,6 @@ Daleks.GameController = (function() {
     }
 
     function GameController(canvas) {
-        var self = this;
-
         this.board = new Daleks.Board(30, 20);
         this.gameData = new Daleks.GameData();
 
@@ -280,15 +278,21 @@ Daleks.GameController = (function() {
                         });
 
                         this.collision.setPosition(this.daleks[iDalek].pos);
-                        this.collision.animate();
+                        var self = this;
 
-                        var rubble = new Daleks.Piece(painterClasses['rubble']);
-                        this.rubble[this.rubble.length] = rubble;
+                        this.collision.animate(new function(piece) {
+                            var rubble = new Daleks.Piece(painterClasses['rubble']);
 
-                        this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+                            self.rubble[self.rubble.length] = rubble;
+
+                            self.board.placeRubble(rubble, self.daleks[iDalek].pos);
+
+
+                        });
 
                         this.removeDalek(iDalek);
                         this.removeDalek(jDalek);
+
                         break;
 
                     }

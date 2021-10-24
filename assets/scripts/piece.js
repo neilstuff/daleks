@@ -22,7 +22,6 @@ Daleks.Piece = (function() {
 
         }
 
-        console.log(frames);
 
         args = args || {};
 
@@ -64,14 +63,19 @@ Daleks.Piece = (function() {
         },
 
         // a Piece finished animating.  now what?  
-        finishAnimation: function() {
+        finishAnimation: function(callback) {
             this.isAnimating = false;
+            var self = this;
+
+            if (callback) {
+                callback(self);
+            }
         },
 
         //----------------------------------------
         // move smoothly from one point to another
         // this is done asynchronously and ends when "to" point is reached.
-        animateTo: function(toPos) {
+        animateTo: function(toPos, callback) {
             this.isAnimating = true;
 
             var start = this.getScaledPos(this.pos);
@@ -94,7 +98,7 @@ Daleks.Piece = (function() {
                 if (++frame <= self.frameCount) {
                     setTimeout(nextFrame, self.interval);
                 } else {
-                    self.finishAnimation();
+                    self.finishAnimation(callback);
                 }
             };
 
@@ -102,7 +106,7 @@ Daleks.Piece = (function() {
 
         },
 
-        animate: function() {
+        animate: function(callback) {
             this.isAnimating = true;
 
             var pos = this.getScaledPos(this.pos);
@@ -114,10 +118,9 @@ Daleks.Piece = (function() {
 
                 console.log(self.frameCount, `${self.frames[frame - 1]}`, frame, pos);
                 if (++frame <= self.frameCount) {
-
                     setTimeout(nextFrame, self.interval);
                 } else {
-                    self.finishAnimation();
+                    self.finishAnimation(callback);
                 }
             };
             nextFrame.call();
