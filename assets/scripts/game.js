@@ -280,20 +280,20 @@ Daleks.GameController = (function() {
                         this.collision.setPosition(this.daleks[iDalek].pos);
                         this.collision.show();
 
-                        var self = this;
+                        var rubble = new Daleks.Piece(painterClasses['rubble']);
+                        this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+
+                        rubble.hide();
+
+                        this.rubble[this.rubble.length] = rubble;
 
                         this.collision.animate({
-                                position: self.daleks[iDalek].pos
+                                rubble: rubble
                             },
                             function(piece, args) {
 
-                                self.collision.hide();
-
-                                var rubble = new Daleks.Piece(painterClasses['rubble']);
-
-                                self.rubble[self.rubble.length] = rubble;
-
-                                self.board.placeRubble(rubble, args.position);
+                                piece.hide();
+                                args.rubble.show();
 
                             });
 
