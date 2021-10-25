@@ -37,7 +37,8 @@
     },
     "devDependencies": {
         "electron": "^15.1.0",
-        "electron-builder": "^22.11.7"
+        "electron-builder": "^22.11.7",
+        "node": "^17.0.1"
     },
     "bugs": {
         "url": "https://github.com/thesourorange/neilstuff/issues"
