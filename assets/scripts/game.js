@@ -239,21 +239,48 @@ Daleks.GameController = (function() {
 
         //----------------------------------------
         // did this dalek run into the Doctor or rubble?
-        dalekCollidedWithLandscape: function(inDalek) {
+        checkObjectCollision: function(dalek) {
 
-            if (inDalek.collidedWith(this.doctor)) {
-                console.log(inDalek);
-                this.board.remove(inDalek);
+            if (dalek.collidedWith(this.doctor)) {
+                this.board.remove(dalek);
                 this.loseGame();
-                return false;
+
+                return {
+                    type: 1,
+                    object: this.doctor
+                };
+
             }
 
             for (var iRubble in this.rubble) {
-                if (inDalek.collidedWith(this.rubble[iRubble])) {
-                    return true; // boom
+                if (dalek.collidedWith(this.rubble[iRubble])) {
+                    return {
+                        type: 2,
+                        object: this.rubble[iRubble],
+                        index: iRubble
+                    };
+
                 }
+
             }
-            return false;
+
+            for (var iDalek in this.daleks) {
+
+                if (dalek.collidedWith(this.daleks[iDalek])) { 
+                    return {
+                        type: 3,
+                        object: this.daleks[iDalek],
+                        index: iDalek
+                    };
+
+                }
+
+            }    
+
+            return  {
+                type:0
+            };
+
         },
 
         //----------------------------------------
@@ -263,47 +290,65 @@ Daleks.GameController = (function() {
         checkCollisions: function() {
             for (var iDalek in this.daleks) {
 
-                if (this.dalekCollidedWithLandscape(this.daleks[iDalek])) {
-                    this.removeDalek(iDalek);
-                    continue;
-                }
+               var result = this.checkObjectCollision(this.daleks[iDalek]);
 
-                for (var jDalek in this.daleks) {
+               if (result.type == 1) {
+                    this.board.remove(this.daleks[iDalek]);
+                    this.loseGame();
+               } else if (result.type == 2) {
+                    var rubble = result.object;
+ 
+                    rubble.hide();
 
-                    if (this.daleks[iDalek].collidedWith(this.daleks[jDalek])) { // boom!\
+                    this.board.placeCollision(this.collision, this.daleks[iDalek].pos);
+                    this.collision.setPosition(this.daleks[iDalek].pos);
+                    this.collision.show();
 
-                        this.board.placeCollision(this.collision, {
-                            x: 10,
-                            y: 10
+                    this.collision.animate({
+                            rubble: rubble
+                        },
+                        function(piece, args) {
+
+                            piece.hide();
+                            args.rubble.show();
+
                         });
 
-                        this.collision.setPosition(this.daleks[iDalek].pos);
-                        this.collision.show();
+                    this.removeDalek(iDalek);
 
-                        var rubble = new Daleks.Piece(painterClasses['rubble']);
-                        this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+                    continue;
 
-                        rubble.hide();
+                } else if (result.type == 3) {
 
-                        this.rubble[this.rubble.length] = rubble;
+                    this.board.placeCollision(this.collision, this.daleks[iDalek].pos);
+                    this.collision.setPosition(this.daleks[iDalek].pos);
 
-                        this.collision.animate({
-                                rubble: rubble
-                            },
-                            function(piece, args) {
+                    this.collision.show();
 
-                                piece.hide();
-                                args.rubble.show();
+                    var rubble = new Daleks.Piece(painterClasses['rubble']);
+                    this.board.placeRubble(rubble, this.daleks[iDalek].pos);
 
-                            });
+                    rubble.hide();
 
-                        this.removeDalek(iDalek);
-                        this.removeDalek(jDalek);
+                    this.rubble[this.rubble.length] = rubble;
 
-                        break;
+                    this.collision.animate({
+                            rubble: rubble
+                        },
+                        function(piece, args) {
 
-                    }
+                            piece.hide();
+                            args.rubble.show();
+
+                        });
+
+                    this.removeDalek(iDalek);
+                    this.removeDalek(result.index);
+
+                    break;
+
                 }
+
             }
 
         },
@@ -462,10 +507,12 @@ Daleks.GameController = (function() {
             this.doctor.getEl().addClass("dead");
 
             this.gameData.setHighScore(this.score);
+            
             //           $("#highScore").text(this.gameData.getHighScore());
             //            $("#highScores").show();
 
             var self = this;
+            
             $(".arena").one(_click, function() {
                 self.resetGame();
                 self.startNextLevel();
