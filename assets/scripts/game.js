@@ -522,23 +522,42 @@ Daleks.GameController = (function() {
             var y = this.doctor.pos.y;
 
             var epicenter = this.doctor.getScaledCenterPos();
+
+            this.disableControls();
+
+            // depends on being called with "this" as context
+                var reappearDone = function() {
+                    this.doneAnimating();
+
+                    
+                    for (var i in this.daleks) {
+                        var pos = this.daleks[i].pos;
+                        if (((pos.x === x) || (pos.x === x + 1) || (pos.x === x - 1)) &&
+                            ((pos.y === y) || (pos.y === y + 1) || (pos.y === y - 1))) {
+                            this.removeDalek(i);
+                        }
+                    }
+
+                    this.enableControls();
+                    this.updateWorld();
+                    
+                };
+                        
             var animation = new Daleks.Animation.SonicPulse({
                 container: this.board.getEl(),
                 epicenter: epicenter,
                 innerDiameter: 16,
-                outerDiameter: 48
+                outerDiameter: 48,                
+                callback: {
+                    success: reappearDone,
+                    context: this
+                }
+
             });
 
             animation.start();
-            for (var i in this.daleks) {
-                var pos = this.daleks[i].pos;
-                if (((pos.x === x) || (pos.x === x + 1) || (pos.x === x - 1)) &&
-                    ((pos.y === y) || (pos.y === y + 1) || (pos.y === y - 1))) {
-                    this.removeDalek(i);
-                }
-            }
 
-            this.updateWorld();
+
         },
 
         //----------------------------------------
