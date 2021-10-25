@@ -33,6 +33,40 @@ Daleks.GameController = (function() {
             className: "rubble",
             frames: 4
         }],
+        rip : [
+            {
+                className: "doctor-dead-1",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-2",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-1",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-2",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-1",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-2",
+                frames: 1
+            },
+            {
+                className: "doctor-dead-3",
+                frames: 1,
+            },
+            {
+                className: "doctor-dead-4",
+                frames: 1,               
+            }
+        ],
         dead: [{
             className: "dead",
             frames: 8
@@ -45,11 +79,12 @@ Daleks.GameController = (function() {
 
         canvas.append(this.board.getEl());
 
+        this.firstRound = true;
         this.resetGame();
 
         $(".arena").on("click", function() {
-            $(".instructions").addClass("fadeOut");
         });
+
     }
 
     GameController.prototype = {
@@ -66,6 +101,10 @@ Daleks.GameController = (function() {
             //           this.doctor = new Daleks.Piece(painterClasses['doctor']);
             this.doctor = new Daleks.Piece(painterClasses['doctor']);
             this.collision = new Daleks.Piece(painterClasses['collision'], {
+                interval: 100
+            });
+
+            this.rip = new Daleks.Piece(painterClasses['rip'], {
                 interval: 100
             });
 
@@ -87,6 +126,7 @@ Daleks.GameController = (function() {
             }
 
             this.draw();
+
         },
 
         // callback for an arrow being clicked or other move instruction
@@ -128,12 +168,16 @@ Daleks.GameController = (function() {
                 });
 
             // data-name is the function to call on click
+
             $(".actions").on(_click, "a", function(e) {
                 e.preventDefault();
+
                 var fn = $(e.target).closest('a').data('name');
                 if (self[fn]) {
                     self[fn].call(self);
                 }
+
+                self.firstRound = false;
                 return false;
             });
 
@@ -264,18 +308,25 @@ Daleks.GameController = (function() {
 
             }
 
+            var destroyed = [];
             for (var iDalek in this.daleks) {
 
                 if (dalek.collidedWith(this.daleks[iDalek])) { 
-                    return {
-                        type: 3,
-                        object: this.daleks[iDalek],
-                        index: iDalek
-                    };
+
+                    console.log(iDalek);
+
+                    destroyed.push(iDalek);
 
                 }
 
             }    
+
+            if (destroyed.length != 0) {
+                return {
+                    type: 3,
+                    object: destroyed
+                }
+            }
 
             return  {
                 type:0
@@ -328,6 +379,16 @@ Daleks.GameController = (function() {
                     var rubble = new Daleks.Piece(painterClasses['rubble']);
                     this.board.placeRubble(rubble, this.daleks[iDalek].pos);
 
+                    this.removeDalek(iDalek);
+
+                    console.log(result.object.length)
+
+                    for (var iDestroyed in result.object) {
+
+                        this.removeDalek(result.object[iDestroyed]);
+
+                    }
+
                     rubble.hide();
 
                     this.rubble[this.rubble.length] = rubble;
@@ -340,10 +401,7 @@ Daleks.GameController = (function() {
                             piece.hide();
                             args.rubble.show();
 
-                        });
-
-                    this.removeDalek(iDalek);
-                    this.removeDalek(result.index);
+                        });  
 
                     break;
 
@@ -500,19 +558,31 @@ Daleks.GameController = (function() {
         loseGame: function() {
             this.endRound();
 
-            // TODO animate
+            var self = this;
 
-            console.log(this.doctor.getEl());
+            this.board.placeRip(this.rip, this.doctor.pos);
+            this.rip.setPosition(this.doctor.pos);
+            this.doctor.hide();
+            this.rip.show();
 
-            this.doctor.getEl().addClass("dead");
+            this.rip.animate({
+                doctor: this.doctor
+            },
+            function(piece, args) {
+
+                piece.hide();
+                args.doctor.getEl().addClass("dead");
+                args.doctor.show();
+  
+
+            });
 
             this.gameData.setHighScore(this.score);
-            
+
             //           $("#highScore").text(this.gameData.getHighScore());
             //            $("#highScores").show();
 
-            var self = this;
-            
+           
             $(".arena").one(_click, function() {
                 self.resetGame();
                 self.startNextLevel();

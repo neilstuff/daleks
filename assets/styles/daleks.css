@@ -113,6 +113,30 @@ h1 {
     height: 8px;
 }
 
+.doctor-dead-1 {
+    background: url("../images/doctor-dead-1.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
+.doctor-dead-2 {
+    background: url("../images/doctor-dead-2.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
+.doctor-dead-3 {
+    background: url("../images/doctor-dead-3.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
+.doctor-dead-4 {
+    background: url("../images/doctor-dead-4.png") 0 0 no-repeat;
+    width: 8px;
+    height: 8px;
+}
+
 .rubble {
     background: url("../images/rubble.png") 0 0 no-repeat;
     background-size: cover;
