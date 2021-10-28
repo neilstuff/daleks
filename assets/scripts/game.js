@@ -230,8 +230,10 @@ Daleks.GameController = (function() {
                 return;
             }
 
+            this.checkDaleks();
             this.moveDaleks();
             this.checkWorld();
+
         },
 
         checkWorld: function() {
@@ -248,7 +250,7 @@ Daleks.GameController = (function() {
                 return;
             }
 
-            this.checkCollisions(); // TODO remove pieces after animation is complete
+            this.checkCollisions(); 
 
             if (!this.roundOver) {
                 this.draw();
@@ -256,6 +258,7 @@ Daleks.GameController = (function() {
 
             // check for victory
             var victory = true;
+
             for (var iDalek in this.daleks) {
                 if (this.daleks[iDalek]) {
                     victory = false;
@@ -540,7 +543,7 @@ Daleks.GameController = (function() {
 
                     this.enableControls();
                     this.updateWorld();
-                    
+
                 };
                         
             var animation = new Daleks.Animation.SonicPulse({

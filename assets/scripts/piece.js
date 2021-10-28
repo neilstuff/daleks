@@ -144,7 +144,7 @@ Daleks.Piece = (function() {
         //----------------------------------------
         // move piece one towards given location (the Doctor)
         moveTowards: function(dest) {
-            var to = { // deep copy
+            var to = {
                 x: this.pos.x,
                 y: this.pos.y
             };
