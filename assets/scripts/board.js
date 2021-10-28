@@ -54,6 +54,11 @@ Daleks.Board = (function() {
             this.place(rip);
         },
 
+        placeCollided: function(collided, pos) {
+            collided.setPosition(pos);
+            this.place(collided);
+        },
+
         clear: function() {
             this.getEl().empty();
         },

@@ -72,9 +72,14 @@ Daleks.Piece = (function() {
             }
         },
 
-        //----------------------------------------
-        // move smoothly from one point to another
-        // this is done asynchronously and ends when "to" point is reached.
+        /**
+         * Move smoothly from one point to another 
+         * this is done asynchronously and ends when "to" point is reached.
+         * 
+         * @param {*} toPos The To positon 
+         * @param {*} args Arguments to the callback
+         * @param {*} callback called after animation has completed
+         */
         animateTo: function(toPos, args, callback) {
             this.isAnimating = true;
 
@@ -106,6 +111,12 @@ Daleks.Piece = (function() {
 
         },
 
+        /**
+         * Animate the position and once completed - call the callback
+         * 
+         * @param {*} args Parameters to the callback
+         * @param {*} callback The callback function
+         */
         animate: function(args, callback) {
 
             console.log(callback);
@@ -129,10 +140,18 @@ Daleks.Piece = (function() {
             nextFrame.call();
         },
 
+        /**
+         * Draw the Piece
+         */
         draw: function() {
             this.paint(0, this.getScaledPos(this.pos));
         },
 
+        /**
+         * Move the Element to the new position
+         * @param {*} frame the frame to show
+         * @param {*} pos the position
+         */
         paint: function(frame, pos) {
 
             this.el.attr('class', `piece ${this.frames[frame]}`);
@@ -141,8 +160,31 @@ Daleks.Piece = (function() {
 
         },
 
-        //----------------------------------------
-        // move piece one towards given location (the Doctor)
+        /**
+         * This checks if a dalek will 'kill' the doctor
+         * 
+         * @param {*} dest 
+         * @returns 'true' if to == destination
+         */
+        checkMovement: function(dest) {
+            var to = {
+                x: this.pos.x,
+                y: this.pos.y
+            };
+
+            if (this.pos.x > dest.pos.x) { to.x--; }
+            if (this.pos.x < dest.pos.x) { to.x++; }
+            if (this.pos.y > dest.pos.y) { to.y--; }
+            if (this.pos.y < dest.pos.y) { to.y++; }
+
+            return to.x == dest.pos.x && to.y == dest.pos.y;
+
+        },
+
+        /**
+         * Move the piece (this is for daleks)
+         * @param {*} dest the destination
+         */
         moveTowards: function(dest) {
             var to = {
                 x: this.pos.x,
