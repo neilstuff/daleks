@@ -391,20 +391,23 @@ Daleks.GameController = (function() {
         // then with other daleks - which will make a landmark for others to hit
         checkCollisions: function() {
             for (var iDalek in this.daleks) {
-
+                var pos = this.daleks[iDalek].pos;
+                var exterminated = false;
                 var results = this.checkObjectCollision(this.daleks[iDalek]);
 
                 for (var iResult in results) {
                     var result = results[iResult];
 
                     if (result.type == 2) {
+
                         var rubble = result.object;
 
                         rubble.hide();
 
-                        this.board.placeCollision(this.collision, this.daleks[iDalek].pos);
-                        this.collision.setPosition(this.daleks[iDalek].pos);
-                        this.collision.show();
+                        this.board.placeCollision(this.collision, pos);
+                        this.collision.setPosition(pos);
+                        this.collision.show()
+                        this.removeDalek(iDalek);
 
                         this.collision.animate({
                                 rubble: rubble
@@ -416,19 +419,22 @@ Daleks.GameController = (function() {
 
                             });
 
-                        this.removeDalek(iDalek);
+                        exterminated = true;
 
                     } else if (result.type == 3) {
 
-                        this.board.placeCollision(this.collision, this.daleks[iDalek].pos);
-                        this.collision.setPosition(this.daleks[iDalek].pos);
+
+                        this.board.placeCollision(this.collision, pos);
+                        this.collision.setPosition(pos);
 
                         this.collision.show();
 
                         var rubble = new Daleks.Piece(painterClasses['rubble']);
-                        this.board.placeRubble(rubble, this.daleks[iDalek].pos);
+                        this.board.placeRubble(rubble, pos);
 
-                        this.removeDalek(iDalek);
+                        if (!exterminated) {
+                            this.removeDalek(iDalek);
+                        }
 
                         this.removeDalek(result.index);
 
@@ -448,18 +454,28 @@ Daleks.GameController = (function() {
 
                     }
 
+                    exterminated = true;
+
                 }
+
             }
 
         },
 
-        //----------------------------------------
+        /**
+         * remove the dalek from the board it has been exterminated
+         * @param {*} index the daleks index on the board
+         */
         removeDalek: function(index) {
             this.board.remove(this.daleks[index]);
             delete this.daleks[index];
             this.updateScore(1);
         },
 
+        /**
+         * Update the Score
+         * @param {*} value 
+         */
         updateScore: function(value) {
             this.score += value;
             $("#score").text(this.score);
