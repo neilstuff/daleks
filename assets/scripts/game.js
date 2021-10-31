@@ -105,7 +105,9 @@ Daleks.GameController = (function() {
     function GameController(canvas) {
         this.board = new Daleks.Board(30, 20);
         this.gameData = new Daleks.GameData();
-        this.deadDalekSound = new Daleks.Sound('#dead-dalek');
+        this.deadDalekSound = new Daleks.Sound('#dead-dalek-sound');
+        this.teleportSound = new Daleks.Sound('#teleport-sound');
+        this.sonicScrewdriverSound = new Daleks.Sound('#sonic-screwdriver-sound');
 
         canvas.append(this.board.getEl());
 
@@ -499,6 +501,8 @@ Daleks.GameController = (function() {
 
             this.board.remove(this.doctor);
 
+            this.teleportSound.play();
+
             var disappear = new Daleks.Animation.SonicPulse({
                 container: this.board.getEl(),
                 epicenter: epicenter,
@@ -588,6 +592,8 @@ Daleks.GameController = (function() {
             var epicenter = this.doctor.getScaledCenterPos();
 
             this.disableControls();
+
+            this.sonicScrewdriverSound.play();
 
             // depends on being called with "this" as context
             var reappearDone = function() {
