@@ -108,6 +108,8 @@ Daleks.GameController = (function() {
         this.deadDalekSound = new Daleks.Sound('#dead-dalek-sound');
         this.teleportSound = new Daleks.Sound('#teleport-sound');
         this.sonicScrewdriverSound = new Daleks.Sound('#sonic-screwdriver-sound');
+        this.winRoundSound = new Daleks.Sound('#win-round-sound');
+        this.loseRoundSound = new Daleks.Sound('#lose-round-sound');
 
         canvas.append(this.board.getEl());
 
@@ -633,6 +635,7 @@ Daleks.GameController = (function() {
         //----------------------------------------
         winRound: function() {
             this.endRound();
+            this.winRoundSound.play();
 
             $(".victory").show();
 
@@ -657,6 +660,7 @@ Daleks.GameController = (function() {
                 self.collided.setPosition(dalek.pos);
                 dalek.hide();
                 self.collided.show();
+                self.loseRoundSound.play();
 
                 return new Promise(resolve => {
 
