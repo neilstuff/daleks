@@ -105,6 +105,7 @@ Daleks.GameController = (function() {
     function GameController(canvas) {
         this.board = new Daleks.Board(30, 20);
         this.gameData = new Daleks.GameData();
+        this.deadDalekSound = new Daleks.Sound('#dead-dalek');
 
         canvas.append(this.board.getEl());
 
@@ -406,8 +407,13 @@ Daleks.GameController = (function() {
 
                         this.board.placeCollision(this.collision, pos);
                         this.collision.setPosition(pos);
-                        this.collision.show()
-                        this.removeDalek(iDalek);
+                        this.collision.show();
+                        if (!exterminated) {
+
+                            this.removeDalek(iDalek);
+                            this.deadDalekSound.play();
+
+                        }
 
                         this.collision.animate({
                                 rubble: rubble
@@ -423,7 +429,6 @@ Daleks.GameController = (function() {
 
                     } else if (result.type == 3) {
 
-
                         this.board.placeCollision(this.collision, pos);
                         this.collision.setPosition(pos);
 
@@ -434,6 +439,7 @@ Daleks.GameController = (function() {
 
                         if (!exterminated) {
                             this.removeDalek(iDalek);
+                            this.deadDalekSound.play();
                         }
 
                         this.removeDalek(result.index);

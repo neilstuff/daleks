@@ -9,12 +9,13 @@
 
 </head>
 
-<body style="overflow: hidden; user-select: none;"> 
+<body style="overflow: hidden; user-select: none;">
+    <audio id="dead-dalek" class="preload" src="assets/sounds/8bitgame10.mp3"></audio>
 
     <div>
         <div style="position:fixed; top:2px; left:4px; right:0px; height:11px; z-index: 100; -webkit-app-region: nodrag;" class="navbar">
             <li class="dropdown" style="width:24px; margin-left:auto; margin-right:auto;">
-                <img src="assets/images/apple.png"/>
+                <img src="assets/images/apple.png" />
             </li>
             <ul>
                 <li class="dropdown">
@@ -22,7 +23,7 @@
                     <div id="file" class="dropdown-content">
                         <a id="quit" href="javascript:void(0);">&nbsp;&nbsp;Quit</a>
                     </div>
-            </li>
+                </li>
                 <li class="dropdown">
                     <a class="drop_menu_item">&nbsp;Game
                     </a>
@@ -56,13 +57,14 @@
     </h2>
 
     <div class="arena " style="position:absolute; top:37px; ">
-   </div>
+    </div>
 
     <div style="clear: both; "></div>
 
     <script src="node_modules/jquery/dist/jquery.min.js "></script>
 
     <script src="assets/scripts/daleks.js "></script>
+    <script src="assets/scripts/sound.js "></script>
     <script src="assets/scripts/piece.js "></script>
     <script src="assets/scripts/board.js "></script>
     <script src="assets/scripts/gameData.js "></script>

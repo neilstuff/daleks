@@ -2,6 +2,7 @@
 // div element that can be positioned absolutely and animated.
 //----------------------------------------------------------------------
 Daleks.Board = (function() {
+
     function Board(width, height) {
         this.width = width || 30;
         this.height = height || 20;
@@ -81,4 +82,5 @@ Daleks.Board = (function() {
     };
 
     return Board;
+
 })();

@@ -467,3 +467,7 @@ a.button.disabled {
 .hide {
     display: none;
 }
+
+.preload {
+    display: none;
+}
