@@ -111,6 +111,10 @@ Daleks.GameController = (function() {
         this.winRoundSound = new Daleks.Sound('#win-round-sound');
         this.loseRoundSound = new Daleks.Sound('#lose-round-sound');
 
+        this.teleportSound.volume(0.1);
+        this.sonicScrewdriverSound.volume(0.2);
+        this.winRoundSound.volume(0.7);
+
         canvas.append(this.board.getEl());
 
         this.firstRound = true;

@@ -14,6 +14,10 @@ Daleks.Sound = (function() {
 
         play: function() {
             this.audio.play()
+        },
+
+        volume: function(adjust) {
+            this.audio.volume = adjust;
         }
 
     }
