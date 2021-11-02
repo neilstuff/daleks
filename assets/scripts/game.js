@@ -524,7 +524,7 @@ Daleks.GameController = (function() {
         teleportReappear: function() {
 
             // someplace brand new!
-            this.board.placeDoctor(this.doctor);
+            this.board.replaceDoctor(this.doctor, this.daleks, this.rubble);
             var epicenter = this.doctor.getScaledCenterPos();
 
             // depends on being called with "this" as context

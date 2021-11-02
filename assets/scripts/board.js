@@ -33,11 +33,44 @@ Daleks.Board = (function() {
         dalekPositionIsLegal: function(pos, doctor) {
             return (pos.x !== doctor.pos.x) && (pos.y !== doctor.pos.y);
         },
-
-        // place doctor randomly on board
+        /**
+         * Doctor the position
+         * @param {*} doctor the doctor
+         */
         placeDoctor: function(doctor) {
             doctor.setPosition(_getRandomPosition(this));
             this.place(doctor);
+        },
+        /**
+         * Place the doctor and miss out rubble and daleks
+         * @param {*} doctor the Doctor
+         * @param {*} daleks all the Daleks must avoid
+         * @param {*} rubble all the Rubble must avoid
+         */
+        replaceDoctor: function(doctor, daleks, rubble) {
+            function checkObject(pos, objects) {
+
+                for (var iObject in objects) {
+
+                    if (objects[iObject].pos.x == pos.x && objects[iObject].pos.y == pos.y) {
+                        return true;
+                    }
+
+                }
+
+                return false;
+
+            }
+
+            var pos = _getRandomPosition(this);
+
+            while (checkObject(pos, daleks) || checkObject(pos, rubble)) {
+                pos = _getRandomPosition(this);
+            }
+
+            doctor.setPosition(pos);
+            this.place(doctor);
+
         },
 
         placeRubble: function(rubble, pos) {
