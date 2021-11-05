@@ -648,10 +648,12 @@ Daleks.GameController = (function() {
             $(".victory").show();
 
             var self = this;
-            $(".arena").one(_click, function() {
+
+            setTimeout(function() {
+
                 self.startNextLevel();
-                return false;
-            });
+
+            }, 1000);
         },
 
 
