@@ -64,12 +64,6 @@ h1 {
     color: #5489D0;
 }
 
-.loading {
-    background: url("../images/loading.gif") 240px 120px no-repeat;
-    height: 200px;
-    width: 300px;
-}
-
 .dalek {
     background: url("../images/dalek.png") 0 0 no-repeat;
     width: 8px;
@@ -470,4 +464,15 @@ a.button.disabled {
 
 .preload {
     display: none;
+}
+
+.about {
+    margin: auto;
+    left: 100px;
+    right: 100px;
+    height: 30%;
+    border: 1px solid #000000;
+    padding: 10px;
+    z-index: 200;
+    background-color: white;
 }
