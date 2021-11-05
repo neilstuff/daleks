@@ -130,7 +130,6 @@ Daleks.Piece = (function() {
             var nextFrame = function() {
                 self.paint(frame - 1, pos);
 
-                console.log(self.frameCount, `${self.frames[frame - 1]}`, frame, pos);
                 if (++frame <= self.frameCount) {
                     setTimeout(nextFrame, self.interval);
                 } else {

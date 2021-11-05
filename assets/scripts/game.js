@@ -792,12 +792,14 @@ $(() => {
         if (event.target.id && event.target.id == 'about') {
             $('#about').css('filter', 'invert(0%)');
             $('#about_menu')[0].style.backgroundColor = 'white';
-            $('#about').css('filter', 'invert(100%)');
-            $('#about_menu')[0].style.backgroundColor = 'black';
-            $('#about_menu')[0].style.color = 'white';
+            $('#about_menu')[0].style.color = 'black';
 
             $('#about_dialog').css('display', 'inline-block');
 
+            setTimeout(function() {
+                $('#about_dialog').css('display', 'none');
+            }, 2000);
+  
         } else if (event.target.id && event.target.id == 'quit') {
             window.api.quit();
         } else if (event.target.id && event.target.id == 'teleport') {
