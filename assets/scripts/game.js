@@ -742,6 +742,8 @@ Daleks.GameController = (function() {
         resetGame: function() {
             this.score = 0;
             this.level = 0;
+
+            $("#score").text(0);
         }
 
     };
