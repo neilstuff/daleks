@@ -199,8 +199,10 @@ Daleks.Piece = (function() {
             this.slideTo(to);
         },
 
-        //----------------------------------------
-        // update logical position, and animate a transition to there on screen
+        /**
+         * Slide the piece to the new position
+         * @param {*} newPos 
+         */
         slideTo: function(newPos) {
             // start animation first (perhaps set should be a after-callback?
             this.animateTo(newPos);

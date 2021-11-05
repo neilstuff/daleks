@@ -394,10 +394,12 @@ Daleks.GameController = (function() {
 
         },
 
-        //----------------------------------------
-        // make rubble where Daleks impacted each other
-        // check for impact with existing landmarks first, 
-        // then with other daleks - which will make a landmark for others to hit
+        /**
+         * make rubble where Daleks impacted each other
+         * check for impact with existing landmarks first, 
+         * then with other daleks - which will make a landmark for others to hit
+         * 
+         */
         checkCollisions: function() {
             for (var iDalek in this.daleks) {
                 var pos = this.daleks[iDalek].pos;
@@ -563,7 +565,7 @@ Daleks.GameController = (function() {
             this.isLastStand = true;
             this.controls.disable();
             this.disableControls();
-            $(".button").addClass("disabled");;
+            $(".button").addClass("disabled");
 
             this.updateWorld();
         },
@@ -636,7 +638,9 @@ Daleks.GameController = (function() {
 
         },
 
-        //----------------------------------------
+        /**
+         * Won the round
+         */
         winRound: function() {
             this.endRound();
             this.winRoundSound.play();
@@ -760,6 +764,12 @@ $(() => {
 
         }
 
+        if (event.target.id == 'about') {
+            $('#about').css('filter', 'invert(100%)');
+            $('#about_menu')[0].style.backgroundColor = 'black';
+            $('#about_menu')[0].style.color = 'white';
+        }
+
     });
 
     window.addEventListener("mouseup", event => {
@@ -774,11 +784,21 @@ $(() => {
 
                 items[item].style.backgroundColor = 'white';
                 items[item].style.color = 'black';
+
             }
 
         }
 
-        if (event.target.id && event.target.id == 'quit') {
+        if (event.target.id && event.target.id == 'about') {
+            $('#about').css('filter', 'invert(0%)');
+            $('#about_menu')[0].style.backgroundColor = 'white';
+            $('#about').css('filter', 'invert(100%)');
+            $('#about_menu')[0].style.backgroundColor = 'black';
+            $('#about_menu')[0].style.color = 'white';
+
+            $('#about_dialog').css('display', 'inline-block');
+
+        } else if (event.target.id && event.target.id == 'quit') {
             window.api.quit();
         } else if (event.target.id && event.target.id == 'teleport') {
             game.teleport();
