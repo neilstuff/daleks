@@ -791,15 +791,22 @@ $(() => {
 
         if (event.target.id && event.target.id == 'about') {
             $('#about').css('filter', 'invert(0%)');
+            $('#about_dialog').css('opacity', '100%');
+
             $('#about_menu')[0].style.backgroundColor = 'white';
             $('#about_menu')[0].style.color = 'black';
 
             $('#about_dialog').css('display', 'inline-block');
 
             setTimeout(function() {
-                $('#about_dialog').css('display', 'none');
+                $('#about_dialog').css('opacity', '0%');
+                $('#about_dialog').css('transition', 'all 0.5s ease-in-out');
+                setTimeout(function() {
+                    $('#about_dialog').css('display', 'none');
+                }, 1000);
+
             }, 2000);
-  
+
         } else if (event.target.id && event.target.id == 'quit') {
             window.api.quit();
         } else if (event.target.id && event.target.id == 'teleport') {
