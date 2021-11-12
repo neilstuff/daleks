@@ -497,9 +497,9 @@ Daleks.GameController = (function() {
             $("#score").text(this.score);
         },
 
-
-        //----------------------------------------
-        // randomly jump doctor, no guarantee of landing place
+        /**
+         * randomly jump doctor, no guarantee of landing place
+         */
         teleport: function() {
             this.isAnimating = true;
 
@@ -523,10 +523,12 @@ Daleks.GameController = (function() {
             });
 
             disappear.start();
+
         },
 
-        //----------------------------------------
-        // reppear after disappear is done
+        /**
+         *  reppear after disappear is done
+         */
         teleportReappear: function() {
 
             // someplace brand new!
@@ -774,23 +776,61 @@ $(() => {
     });
 
     window.addEventListener("mouseup", event => {
-        var items = document.getElementsByClassName('drop_menu_item');
-        console.log(event.target);
+        const EVENTS = ['quit', 'teleport', 'laststand', 'screwdriver', 'giveup']
 
-        for (var item in items) {
-            if (items[item].innerText) {
-                var id = items[item].innerText.trimStart().toLowerCase();
+        function processMenuItem(game, id) {
+            var items = document.getElementsByClassName('drop_menu_item');
 
-                $(`#${id}`).css('display', 'none');
+            for (var item in items) {
+                if (items[item].innerText) {
 
-                items[item].style.backgroundColor = 'white';
-                items[item].style.color = 'black';
+                    var meniId = items[item].innerText.trimStart().toLowerCase();
+
+                    $(`#${meniId}`).css('display', 'none');
+
+                    items[item].style.backgroundColor = 'white';
+                    items[item].style.color = 'black';
+
+
+                }
+
+            }
+            if (id.startsWith('quit')) {
+                window.api.quit();
+            } else if (id.startsWith('teleport')) {
+                game.teleport();
+            } else if (id.startsWith('laststand')) {
+                game.lastStand();
+            } else if (id.startsWith('screwdriver')) {
+                game.sonicScrewDriver();
+            } else if (id.startsWith('giveup')) {
+                game.resetGame();
+                game.startNextLevel();
+            }
+
+        }
+
+        function activateMenuItem(counter, game, id) {
+
+            if (counter == 4) {
+                processMenuItem(game, id);
+            } else {
+                if (counter % 2 == 1) {
+                    document.getElementById(`${id}-item`).style.backgroundColor = 'white';
+                    document.getElementById(`${id}-item`).style.color = 'black';
+
+                } else {
+                    document.getElementById(`${id}-item`).style.backgroundColor = 'black';
+                    document.getElementById(`${id}-item`).style.color = 'white';
+                }
+
+                setTimeout(activateMenuItem, 50, ++counter, game, id);
 
             }
 
         }
 
-        if (event.target.id && event.target.id == 'about') {
+        if (event.target.id == 'about') {
             $('#about').css('filter', 'invert(0%)');
             $('#about_dialog').css('opacity', '100%');
 
@@ -806,19 +846,10 @@ $(() => {
                     $('#about_dialog').css('display', 'none');
                 }, 1000);
 
-            }, 2000);
+            }, 3000);
 
-        } else if (event.target.id && event.target.id.startsWith('quit')) {
-            window.api.quit();
-        } else if (event.target.id && event.target.id.startsWith('teleport')) {
-            game.teleport();
-        } else if (event.target.id && event.target.id.startsWith('laststand')) {
-            game.lastStand();
-        } else if (event.target.id && event.target.id.startsWith('screwdriver')) {
-            game.sonicScrewDriver();
-        } else if (event.target.id && event.target.id.startsWith('giveup')) {
-            game.resetGame();
-            game.startNextLevel();
+        } else if (EVENTS.indexOf(event.target.id.split("-")[0]) != -1) {
+            setTimeout(activateMenuItem, 50, 0, game, event.target.id.split("-")[0]);
         }
 
     });
