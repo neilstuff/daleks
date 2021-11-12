@@ -466,6 +466,20 @@ a.button.disabled {
     display: none;
 }
 
+#dalek-logo {
+    position: relative;
+    animation: floatBubble 4s infinite normal ease-out;
+}
+
+@keyframes floatBubble {
+    0% {
+        right: 10px;
+    }
+    100% {
+        right: 200px;
+    }
+}
+
 .about {
     margin: auto;
     left: 100px;
