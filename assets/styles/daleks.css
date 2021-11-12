@@ -473,7 +473,7 @@ a.button.disabled {
 
 @keyframes floatBubble {
     0% {
-        right: 10px;
+        right: 40px;
     }
     100% {
         right: 200px;
