@@ -409,18 +409,6 @@ a.button.disabled {
     -webkit-app-region: no-drag;
 }
 
-.navbar .dropdown-content li:hover {
-    text-decoration: none;
-    color: white;
-    text-align: left;
-    background-color: black;
-    float: none;
-    z-index: 100;
-    cursor: pointer;
-    white-space: nowrap;
-    -webkit-app-region: no-drag;
-}
-
 .navbar .dropdown-content a {
     text-decoration: none;
     color: black;
@@ -428,18 +416,6 @@ a.button.disabled {
     width: 99%;
     float: none;
     white-space: nowrap;
-    z-index: 100;
-    cursor: pointer;
-    -webkit-app-region: no-drag;
-}
-
-.navbar .dropdown-content a:hover {
-    text-decoration: none;
-    color: white;
-    text-align: left;
-    white-space: nowrap;
-    background-color: black;
-    float: none;
     z-index: 100;
     cursor: pointer;
     -webkit-app-region: no-drag;

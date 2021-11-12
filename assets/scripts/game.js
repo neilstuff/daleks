@@ -1,3 +1,5 @@
+const EVENTS = ['quit', 'teleport', 'laststand', 'screwdriver', 'giveup'];
+
 Daleks.GameController = (function() {
     "use strict";
 
@@ -750,6 +752,7 @@ Daleks.GameController = (function() {
     };
 
     return GameController;
+
 })();
 
 $(() => {
@@ -775,26 +778,58 @@ $(() => {
 
     });
 
-    window.addEventListener("mouseup", event => {
-        const EVENTS = ['quit', 'teleport', 'laststand', 'screwdriver', 'giveup']
+    window.addEventListener("mouseover", event => {
+        EVENTS.forEach((value, index) => {
+            document.getElementById(`${value}-item`).style.backgroundColor = 'white';
+            document.getElementById(`${value}-item`).style.color = 'black';
 
-        function processMenuItem(game, id) {
+        });
+
+        if (event.target.id && EVENTS.indexOf(event.target.id.split("-")[0]) != -1) {
+            document.getElementById(`${event.target.id.split("-")[0]}-item`).style.backgroundColor = 'black';
+            document.getElementById(`${event.target.id.split("-")[0]}-item`).style.color = 'white';
+        }
+
+    });
+
+    window.addEventListener("mouseup", event => {
+
+        function closeMenus() {
             var items = document.getElementsByClassName('drop_menu_item');
 
             for (var item in items) {
                 if (items[item].innerText) {
-
                     var meniId = items[item].innerText.trimStart().toLowerCase();
+                    console.log(`${meniId}`);
 
                     $(`#${meniId}`).css('display', 'none');
 
                     items[item].style.backgroundColor = 'white';
                     items[item].style.color = 'black';
 
+                }
+
+            }
+
+        }
+
+        function processMenuItem(game, id) {
+            var items = document.getElementsByClassName('drop_menu_item');
+
+            for (var item in items) {
+                if (items[item].innerText) {
+                    var meniId = items[item].innerText.trimStart().toLowerCase();
+                    console.log(`${meniId}`);
+
+                    $(`#${meniId}`).css('display', 'none');
+
+                    items[item].style.backgroundColor = 'white';
+                    items[item].style.color = 'black';
 
                 }
 
             }
+
             if (id.startsWith('quit')) {
                 window.api.quit();
             } else if (id.startsWith('teleport')) {
@@ -815,10 +850,10 @@ $(() => {
             if (counter == 4) {
                 processMenuItem(game, id);
             } else {
+
                 if (counter % 2 == 1) {
                     document.getElementById(`${id}-item`).style.backgroundColor = 'white';
                     document.getElementById(`${id}-item`).style.color = 'black';
-
                 } else {
                     document.getElementById(`${id}-item`).style.backgroundColor = 'black';
                     document.getElementById(`${id}-item`).style.color = 'white';
@@ -850,6 +885,8 @@ $(() => {
 
         } else if (EVENTS.indexOf(event.target.id.split("-")[0]) != -1) {
             setTimeout(activateMenuItem, 50, 0, game, event.target.id.split("-")[0]);
+        } else {
+            closeMenus();
         }
 
     });
