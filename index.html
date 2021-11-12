@@ -25,19 +25,34 @@
                 <li class="dropdown">
                     <a class="drop_menu_item">&nbsp;File</a>
                     <div id="file" class="dropdown-content">
-                        <a id="quit" href="javascript:void(0);">&nbsp;&nbsp;Quit</a>
+                        <a href="javascript:void(0);">
+                            <span id="quit" style="display: inline-block; width:60px;">&nbsp;&nbsp;Quit</span>
+                            <span>⌘Q</span>
+                        </a>
                     </div>
                 </li>
                 <li class="dropdown">
                     <a class="drop_menu_item">&nbsp;Game
                     </a>
 
-                    <div id="game" style="width:140px;" class="dropdown-content">
-                        <a id="teleport" href="javascript:void(0);">&nbsp;&nbsp;Teleport</a>
-                        <a id="laststand" href="javascript:void(0);">&nbsp;&nbsp;Last Stand</a>
-                        <a id="screwdriver" href="javascript:void(0);">&nbsp;&nbsp;Sonic Screwdriver</a>
+                    <div id="game" style="width:170px;" class="dropdown-content">
+                        <a href="javascript:void(0);">
+                            <span id="teleport" style="display: inline-block; width:140px;">&nbsp;&nbsp;Teleport</span>
+                            <span id="teleport-key">⌘T</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span id="laststand" style="display: inline-block; width:140px;">&nbsp;&nbsp;Last Stand</span>
+                            <span id="laststand-key">⌘L</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span id="screwdriver" style="display: inline-block; width:140px;">&nbsp;&nbsp;Sonic Screwdriver</span>
+                            <span id="screwdriver-key">⌘S</span>
+                        </a>
                         <div style="height:1px; border-top: dotted 1px black; width:99%;"></div>
-                        <a id="giveup" href="javascript:void(0);">&nbsp;&nbsp;New Game</a>
+                        <a href="javascript:void(0);">
+                            <span id="giveup" style="display: inline-block; width:140px;">&nbsp;&nbsp;New Game</span>
+                            <span id="giveup-key">⌘N</span>
+                        </a>
                     </div>
                 </li>
             </ul>

@@ -722,7 +722,7 @@ Daleks.GameController = (function() {
             animateDalek(this, dalek);
             await animateLoss(this);
 
-            setTimeout((self)=> {
+            setTimeout((self) => {
                 self.resetGame();
                 self.startNextLevel();
             }, 1000, this);
@@ -774,8 +774,8 @@ $(() => {
     });
 
     window.addEventListener("mouseup", event => {
-
         var items = document.getElementsByClassName('drop_menu_item');
+        console.log(event.target);
 
         for (var item in items) {
             if (items[item].innerText) {
@@ -808,15 +808,15 @@ $(() => {
 
             }, 2000);
 
-        } else if (event.target.id && event.target.id == 'quit') {
+        } else if (event.target.id && event.target.id.startsWith('quit')) {
             window.api.quit();
-        } else if (event.target.id && event.target.id == 'teleport') {
+        } else if (event.target.id && event.target.id.startsWith('teleport')) {
             game.teleport();
-        } else if (event.target.id && event.target.id == 'laststand') {
+        } else if (event.target.id && event.target.id.startsWith('laststand')) {
             game.lastStand();
-        } else if (event.target.id && event.target.id == 'screwdriver') {
+        } else if (event.target.id && event.target.id.startsWith('screwdriver')) {
             game.sonicScrewDriver();
-        } else if (event.target.id && event.target.id == 'giveup') {
+        } else if (event.target.id && event.target.id.startsWith('giveup')) {
             game.resetGame();
             game.startNextLevel();
         }
