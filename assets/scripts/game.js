@@ -722,13 +722,10 @@ Daleks.GameController = (function() {
             animateDalek(this, dalek);
             await animateLoss(this);
 
-            var self = this;
-
-            $(".arena").one(_click, function() {
+            setTimeout((self)=> {
                 self.resetGame();
                 self.startNextLevel();
-                return false;
-            });
+            }, 1000, this);
 
         },
 

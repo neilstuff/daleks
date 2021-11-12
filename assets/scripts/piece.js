@@ -1,11 +1,7 @@
-// require("daleks.js");
-
-//----------------------------------------------------------------------
-// A Piece occupies a space on the board that no one else can occupy.
-// args = {
-//    size: in pixels of piece (should match css)
-//   offset: offset in pixels to draw this piece
-//----------------------------------------------------------------------
+/**
+ * A Piece occupies a space on the board that no one else can occupy.
+ * 
+ */
 Daleks.Piece = (function() {
 
     function Piece(sprites, args) {
